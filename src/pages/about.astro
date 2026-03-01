@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="关于 - AI Daily Brief">
+  <Header />
+  
+  <main class="prose prose-slate max-w-none">
+    <h1>关于 AI Daily Brief</h1>
+    
+    <p>
+      AI Daily Brief 是一个自动化的 AI 行业资讯聚合网站。每天从多个权威来源抓取最新动态，
+      通过算法筛选、去重、排序，生成一份高质量的新闻摘要。
+    </p>
+    
+    <h2>数据来源</h2>
+    <ul>
+      <li><strong>arXiv</strong> - 最新 AI 研究论文</li>
+      <li><strong>Hugging Face</strong> - 开源模型与工具</li>
+      <li><strong>OpenAI / Google / Anthropic</strong> - 官方博客与发布</li>
+      <li><strong>中文科技媒体</strong> - 机器之心、量子位等</li>
+    </ul>
+    
+    <h2>生成流程</h2>
+    <ol>
+      <li>每天定时抓取多个数据源</li>
+      <li>基于来源可信度、关键词匹配、时效性打分</li>
+      <li>自动去重，保留高质量内容</li>
+      <li>生成结构化的每日摘要</li>
+      <li>自动部署到网站</li>
+    </ol>
+    
+    <h2>技术栈</h2>
+    <p>
+      网站使用 <a href="https://astro.build">Astro</a> 构建，
+      部署在 <a href="https://pages.github.com">GitHub Pages</a>，
+      使用 <a href="https://tailwindcss.com">Tailwind CSS</a> 进行样式设计。
+    </p>
+  </main>
+  
+  <Footer />
+</Layout>

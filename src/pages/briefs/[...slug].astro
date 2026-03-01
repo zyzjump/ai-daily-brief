@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const briefs = await Astro.glob('../../content/briefs/*.mdx');
+  
+  return briefs.map((brief) => ({
+    params: { slug: brief.frontmatter.date },
+    props: { brief },
+  }));
+}
+
+const { brief } = Astro.props;
+const { Content } = brief;
+---
+
+<Layout title={brief.frontmatter.title} description={brief.frontmatter.summary}>
+  <Header />
+  
+  <article class="prose prose-slate max-w-none">
+    <div class="mb-8 pb-8 border-b border-slate-200">
+      <div class="text-sm text-slate-400 mb-2">
+        {new Date(brief.frontmatter.date).toLocaleDateString('zh-CN', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          weekday: 'long',
+        })}
+      </div>
+      <h1 class="text-3xl font-bold text-slate-900">{brief.frontmatter.title}</h1>
+    </div>
+    
+    <Content />
+  </article>
+  
+  <Footer />
+</Layout>

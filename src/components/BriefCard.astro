@@ -1,0 +1,33 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  summary: string;
+  url: string;
+}
+
+const { title, date, summary, url } = Astro.props;
+
+const formattedDate = new Date(date).toLocaleDateString('zh-CN', {
+  month: 'long',
+  day: 'numeric',
+  weekday: 'long',
+});
+---
+
+<article class="group border border-slate-200 rounded-xl p-6 hover:shadow-lg hover:border-blue-300 transition-all">
+  <a href={url} class="block">
+    <div class="flex justify-between items-start mb-3">
+      <span class="text-sm text-slate-400 font-mono">{formattedDate}</span>
+      <span class="text-blue-600 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+        阅读全文 →
+      </span>
+    </div>
+    <h2 class="text-xl font-semibold mb-3 text-slate-900 group-hover:text-blue-600 transition-colors">
+      {title}
+    </h2>
+    <p class="text-slate-600 line-clamp-2">
+      {summary}
+    </p>
+  </a>
+</article>

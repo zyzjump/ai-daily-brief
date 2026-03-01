@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BriefCard from '../components/BriefCard.astro';
+
+// 获取所有文章
+const briefs = await Astro.glob('../content/briefs/*.mdx');
+const recent = briefs
+  .sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
+  .slice(0, 7);
+---
+
+<Layout title="AI Daily Brief">
+  <Header />
+  
+  <main>
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold mb-4">AI Daily Brief</h1>
+      <p class="text-lg text-slate-600">
+        每日AI行业值得关心的新闻摘要。自动抓取、智能排序、人工可读。
+      </p>
+    </div>
+    
+    <div class="space-y-6">
+      {recent.length > 0 ? (
+        recent.map((brief) => (
+          <BriefCard 
+            title={brief.frontmatter.title}
+            date={brief.frontmatter.date}
+            summary={brief.frontmatter.summary}
+            url={`/ai-daily-brief/briefs/${brief.frontmatter.date}/`}
+          />
+        ))
+      ) : (
+        <div class="text-center py-12 text-slate-500">
+          <p>暂无文章，请先运行 npm run fetch 生成</p>
+        </div>
+      )}
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

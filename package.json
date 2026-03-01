@@ -1,0 +1,25 @@
+{
+  "name": "ai-daily-brief",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "fetch": "node src/scripts/fetch-news.js"
+  },
+  "dependencies": {
+    "astro": "^4.4.0",
+    "@astrojs/mdx": "^2.1.0",
+    "@astrojs/rss": "^4.0.5",
+    "@astrojs/sitemap": "^3.1.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "js-yaml": "^4.1.0",
+    "rss-parser": "^3.13.0",
+    "fast-xml-parser": "^4.3.0"
+  }
+}

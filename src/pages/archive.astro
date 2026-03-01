@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const briefs = await Astro.glob('../content/briefs/*.mdx');
+const sorted = briefs.sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+
+// 按年月分组
+const grouped = {};
+sorted.forEach(brief => {
+  const date = new Date(brief.frontmatter.date);
+  const key = `${date.getFullYear()}年${date.getMonth() + 1}月`;
+  if (!grouped[key]) grouped[key] = [];
+  grouped[key].push(brief);
+});
+---
+
+<Layout title="归档 - AI Daily Brief">
+  <Header />
+  
+  <main>
+    <h1 class="text-3xl font-bold mb-8">归档</h1>
+    
+    <div class="space-y-8">
+      {Object.entries(grouped).map(([month, items]) => (
+        <div>
+          <h2 class="text-lg font-semibold text-slate-700 mb-4">{month}</h2>
+          <ul class="space-y-2">
+            {items.map(brief => (
+              <li>
+                <a 
+                  href={`/ai-daily-brief/briefs/${brief.frontmatter.date}/`}
+                  class="text-slate-600 hover:text-blue-600"
+                >
+                  {brief.frontmatter.date} · {brief.frontmatter.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>
