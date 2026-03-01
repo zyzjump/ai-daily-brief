@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 1 * * *'  # 每天 UTC 01:00 (北京时间 09:00)
+    - cron: '30 0 * * *'  # UTC 00:30 = 北京时间 08:30
   workflow_dispatch:
 
 permissions:
@@ -30,10 +30,13 @@ jobs:
           cache: 'npm'
           
       - name: Install dependencies
-        run: npm install
+        run: npm ci
         
-      - name: Fetch latest news
-        run: npm run fetch
+      - name: Fetch AI news with Tavily
+        run: node scripts/fetch-daily.cjs
+        env:
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        continue-on-error: true
         
       - name: Build with Astro
         run: npm run build
